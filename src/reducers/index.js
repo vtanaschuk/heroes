@@ -30,6 +30,7 @@ const reducer = (state = initialState, action) => {
             }
         case 'HERO_CREATED':
             const newCreatedHeroList = [...state.heroes, action.payload]
+            console.log(newCreatedHeroList)
             return {
                 ...state,
                 heroes: newCreatedHeroList

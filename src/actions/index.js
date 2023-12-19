@@ -17,6 +17,7 @@ export const heroesDelete = (id) => {
     }
 }
 export const heroCreated = (newHero) => {
+
     return {
         type: 'HERO_CREATED',
         payload: newHero

@@ -25,7 +25,7 @@ const HeroesAddForm = () => {
 
         request("http://localhost:3001/heroes", 'POST', JSON.stringify(newHero))
             .then(res => console.log(res))
-            .then(newHero => dispatch(heroCreated(newHero)))
+            .then(dispatch(heroCreated(newHero)))
             .catch(() => dispatch(heroesFetchingError()))
 
 
