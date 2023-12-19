@@ -1,25 +1,37 @@
-
-// Завдання для цього компонента:
-// Реалізувати створення нового героя із запровадженими даними. Він має потрапляти
-// у загальний стан і відображатись у списку + фільтруватися
-// Унікальний ідентифікатор персонажа можна згенерувати через uiid
-// Ускладнене завдання:
-// Персонаж створюється і файлі json за допомогою методу POST
-// Додатково:
-// Елементи <option></option> бажано сформувати на базі
-// даних із фільтрів
-
+import {useHttp} from '../../hooks/http.hook';
 import {useState} from "react";
+import {heroCreated, heroesFetchingError} from "../../actions";
+import {useDispatch, useSelector} from "react-redux";
 
 const HeroesAddForm = () => {
+    const dispatch = useDispatch();
+    const {request} = useHttp();
+
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [element, setElement] = useState('')
 
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log('hello')
+        e.preventDefault();
+
+        const newHero =     {
+            id: Date.now(),
+            name,
+            description,
+            element
+        }
+        console.log(newHero);
+
+        request("http://localhost:3001/heroes", 'POST', JSON.stringify(newHero))
+            .then(res => console.log(res))
+            .then(newHero => dispatch(heroCreated(newHero)))
+            .catch(() => dispatch(heroesFetchingError()))
+
+
+        setName('')
+        setDescription('');
+        setElement('')
     }
     return (
         <form

@@ -16,7 +16,12 @@ export const heroesDelete = (id) => {
         payload: id
     }
 }
-
+export const heroCreated = (newHero) => {
+    return {
+        type: 'HERO_CREATED',
+        payload: newHero
+    }
+}
 export const heroesFetchingError = () => {
     return {
         type: 'HEROES_FETCHING_ERROR'

@@ -24,9 +24,15 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 heroes: newHeroList,
 
-                filteredHeroes: state.activeFilter === 'all' ?
-                    newHeroList :
-                    newHeroList.filter(item => item.element === state.activeFilter)
+                // filteredHeroes: state.activeFilter === 'all' ?
+                //     newHeroList :
+                //     newHeroList.filter(item => item.element === state.activeFilter)
+            }
+        case 'HERO_CREATED':
+            const newCreatedHeroList = [...state.heroes, action.payload]
+            return {
+                ...state,
+                heroes: newCreatedHeroList
             }
         case 'HEROES_FETCHING_ERROR':
             return {
