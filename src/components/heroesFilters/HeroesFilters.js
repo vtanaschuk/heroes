@@ -6,17 +6,49 @@
 // Змінювати json-файл для зручності МОЖНА!
 // Уявіть, що ви попросили бекенд-розробника про це
 
+import {useHttp} from '../../hooks/http.hook';
+import {useCallback, useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {filtersFetched, filtersFetching, filtersFetchingError, filterChange} from '../../actions';
+
 const HeroesFilters = () => {
+    const {filters, filtersLoadingStatus} = useSelector(state => state);
+
+    const dispatch = useDispatch();
+    const {request} = useHttp();
+
+    useEffect(() => {
+        dispatch(filtersFetching());
+        request("http://localhost:3001/filters")
+            .then(data => dispatch(filtersFetched(data)))
+            .catch(() => dispatch(filtersFetchingError()))
+        // eslint-disable-next-line
+    }, []);
+
+    const renderFiltersList = (arr) => {
+        if (arr.length === 0) {
+            return <h5 className="text-center mt-5">ФІльтрів поки немає</h5>
+        }
+
+        return arr.map(({name, label, className}) => {
+            return (
+                <button
+                    className={`btn ${className}`}
+                    onClick={()=>dispatch(filterChange(name))}>
+                    {label}
+                </button>
+            )
+        })
+    }
+
+    const elements = renderFiltersList(filters);
+
     return (
         <div className="card shadow-lg mt-4">
             <div className="card-body">
                 <p className="card-text">Відфільтруйте героев силі</p>
                 <div className="btn-group">
-                    <button className="btn btn-outline-dark active">Всі</button>
-                    <button className="btn btn-danger">Вогонь</button>
-                    <button className="btn btn-primary">Вода</button>
-                    <button className="btn btn-success">Вітер</button>
-                    <button className="btn btn-secondary">Земля</button>
+                    {elements}
                 </div>
             </div>
         </div>

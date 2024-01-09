@@ -12,7 +12,7 @@ import Spinner from '../spinner/Spinner';
 // Видалення йде і з json файлу за допомогою методу DELETE
 
 const HeroesList = () => {
-    const {heroes, heroesLoadingStatus} = useSelector(state => state);
+    const {heroes,filteredHeroes, heroesLoadingStatus} = useSelector(state => state);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
@@ -26,7 +26,6 @@ const HeroesList = () => {
     }, []);
 
     const onDelete = useCallback((id) => {
-        // Удаление персонажа по его id
         request(`http://localhost:3001/heroes/${id}`, "DELETE")
             .then(data => console.log(data, 'Deleted'))
             .then(dispatch(heroesDelete(id)))
@@ -52,7 +51,7 @@ const HeroesList = () => {
         })
     }
 
-    const elements = renderHeroesList(heroes);
+    const elements = renderHeroesList(filteredHeroes);
     return (
         <ul>
             {elements}

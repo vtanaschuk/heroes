@@ -7,29 +7,60 @@
       "element": "fire"
     },
     {
-      "id": 1703011931257,
-      "name": "111",
-      "description": "йцйц",
-      "element": "earth"
-    },
-    {
-      "id": 1703011940335,
-      "name": "1111",
-      "description": "2222",
+      "id": 1703171489501,
+      "name": "йцуйцу",
+      "description": "йцуйцу",
       "element": "water"
     },
     {
-      "id": 1703012047342,
+      "id": 1703171501796,
+      "name": "чсмчсм",
+      "description": "чсмчсм",
+      "element": "wind"
+    },
+    {
+      "id": 1703171588864,
       "name": "фівфів",
-      "description": "йцуйцу",
-      "element": "fire"
+      "description": "фівфів",
+      "element": "water"
+    },
+    {
+      "id": 1704799903643,
+      "name": "asd",
+      "description": "asdads",
+      "element": "water"
     }
   ],
   "filters": [
-    "all",
-    "fire",
-    "water",
-    "wind",
-    "earth"
+    {
+      "name": "all",
+      "label": "Всі",
+      "className": "btn-outline-dark",
+      "id": "c213"
+    },
+    {
+      "name": "fire",
+      "label": "Вогонь",
+      "className": "btn-danger",
+      "id": "0e53"
+    },
+    {
+      "name": "water",
+      "label": "Вода",
+      "className": "btn-primary",
+      "id": "3602"
+    },
+    {
+      "name": "wind",
+      "label": "Вітер",
+      "className": "btn-success",
+      "id": "c66e"
+    },
+    {
+      "name": "earth",
+      "label": "Земля",
+      "className": "btn-secondary",
+      "id": "f8a1"
+    }
   ]
 }
