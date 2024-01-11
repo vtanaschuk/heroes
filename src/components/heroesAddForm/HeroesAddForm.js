@@ -4,6 +4,8 @@ import {heroCreated, heroesFetchingError} from "../../actions";
 import {useDispatch, useSelector} from "react-redux";
 
 const HeroesAddForm = () => {
+    const {filters, filtersLoadingStatus} = useSelector(state => state);
+
     const dispatch = useDispatch();
     const {request} = useHttp();
 
@@ -11,6 +13,10 @@ const HeroesAddForm = () => {
     const [description, setDescription] = useState('')
     const [element, setElement] = useState('')
 
+    const elOptions =  filters.map(el=> {
+        if( el.name === 'all' ) return
+        return <option value={el.name}>{el.label}</option>
+    })
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -21,7 +27,6 @@ const HeroesAddForm = () => {
             description,
             element
         }
-        console.log(newHero);
 
         request("http://localhost:3001/heroes", 'POST', JSON.stringify(newHero))
             .then(res => console.log(res))
@@ -72,11 +77,7 @@ const HeroesAddForm = () => {
                     name="element"
                     value={element}
                     onChange={(e)=>setElement(e.target.value)}>
-                    <option >Моя супер сила...</option>
-                    <option value="fire">Вогонь</option>
-                    <option value="water">Вода</option>
-                    <option value="wind">Вітер</option>
-                    <option value="earth">Земля</option>
+                    {elOptions}
                 </select>
             </div>
 

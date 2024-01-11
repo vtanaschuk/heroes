@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {filtersFetched, filtersFetching, filtersFetchingError, filterChange} from '../../actions';
 
 const HeroesFilters = () => {
-    const {filters, filtersLoadingStatus} = useSelector(state => state);
+    const {filters, filtersLoadingStatus, activeFilter} = useSelector(state => state);
 
     const dispatch = useDispatch();
     const {request} = useHttp();
@@ -24,16 +24,15 @@ const HeroesFilters = () => {
             .catch(() => dispatch(filtersFetchingError()))
         // eslint-disable-next-line
     }, []);
-
     const renderFiltersList = (arr) => {
         if (arr.length === 0) {
-            return <h5 className="text-center mt-5">ФІльтрів поки немає</h5>
+            return <h5 className="text-center mt-5">Фільтрів поки немає</h5>
         }
 
         return arr.map(({name, label, className}) => {
             return (
                 <button
-                    className={`btn ${className}`}
+                    className={`btn ${className}  ${activeFilter===name ? 'active' : '' }`}
                     onClick={()=>dispatch(filterChange(name))}>
                     {label}
                 </button>
