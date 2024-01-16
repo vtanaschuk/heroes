@@ -4,7 +4,7 @@ import {heroCreated, heroesFetchingError} from "../../actions";
 import {useDispatch, useSelector} from "react-redux";
 
 const HeroesAddForm = () => {
-    const {filters, filtersLoadingStatus} = useSelector(state => state);
+    const {filters, filtersLoadingStatus} = useSelector(state => state.filters);
 
     const dispatch = useDispatch();
     const {request} = useHttp();

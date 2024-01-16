@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {heroesFetching, heroesFetched, heroesFetchingError, heroesDelete} from '../../actions';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
+import {createSelector} from "reselect";
 
 // Завдання для цього компонента:
 // При натисканні на "хрестик" йде видалення персонажа із загального стану
@@ -13,9 +14,31 @@ import Spinner from '../spinner/Spinner';
 
 const HeroesList = () => {
 
-    const {heroes,filteredHeroes, heroesLoadingStatus} = useSelector(state => state);
+    const filteredHeroesSelector = createSelector(
+        (state) => state.filters.activeFilter,
+        (state) => state.heroes.heroes,
+        (filters, heroes) =>{
+            if(filters ==='all'){
+                console.log('render')
+                return heroes
+            } else {
+                return heroes.filter(item => item.element === filters)
+            }
+        }
+    );
+
+    // const filteredHeroes = useSelector( state => {
+    //     if(state.filters.activeFilter ==='all'){
+    //         console.log('render')
+    //         return state.heroes.heroes
+    //     } else {
+    //         return state.heroes.heroes.filter(item => item.element === state.filters.activeFilter)
+    //     }
+    // })
+    const heroesLoadingStatus = useSelector(state => state.heroesLoadingStatus);
     const dispatch = useDispatch();
     const {request} = useHttp();
+
 
     useEffect(() => {
         dispatch(heroesFetching());
@@ -51,7 +74,8 @@ const HeroesList = () => {
             return <HeroesListItem key={id} id={id} {...props} onDelete={(id)=>onDelete(id)}/>
         })
     }
-
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const filteredHeroes = useSelector(filteredHeroesSelector);
     const elements = renderHeroesList(filteredHeroes);
     return (
         <ul>

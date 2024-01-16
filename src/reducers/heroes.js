@@ -14,28 +14,18 @@ const heroes = (state = initialState, action) => {
             return {
                 ...state,
                 heroes: action.payload,
-                filteredHeroes: state.activeFilter === 'all' ?
-                    action.payload :
-                    action.payload.filter(item => item.element === state.activeFilter),
                 heroesLoadingStatus: 'idle',
             }
         case 'HEROES_DELETED':
-            const newHeroList = state.heroes.filter(item=> item.id !== action.payload)
             return {
                 ...state,
-                heroes: newHeroList,
-                filteredHeroes: state.activeFilter === 'all' ?
-                    newHeroList :
-                    newHeroList.filter(item => item.element === state.activeFilter)
+                heroes: state.heroes.filter(item=> item.id !== action.payload),
+
             }
         case 'HERO_CREATED':
-            const newCreatedHeroList = [...state.heroes, action.payload]
             return {
                 ...state,
-                heroes: newCreatedHeroList,
-                filteredHeroes: state.activeFilter === 'all' ?
-                    newCreatedHeroList :
-                    newCreatedHeroList.filter(item => item.element === state.activeFilter)
+                heroes: [...state.heroes, action.payload],
             }
         case 'HEROES_FETCHING_ERROR':
             return {
