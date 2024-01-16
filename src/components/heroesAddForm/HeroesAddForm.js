@@ -12,15 +12,14 @@ const HeroesAddForm = () => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [element, setElement] = useState('')
-
     const elOptions =  filters.map(el=> {
-        if( el.name === 'all' ) return
+        // if( el.name === 'all' ) return
         return <option value={el.name}>{el.label}</option>
     })
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
+        console.log(element);
         const newHero =     {
             id: Date.now(),
             name,

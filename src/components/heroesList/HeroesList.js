@@ -27,21 +27,15 @@ const HeroesList = () => {
         }
     );
 
-    // const filteredHeroes = useSelector( state => {
-    //     if(state.filters.activeFilter ==='all'){
-    //         console.log('render')
-    //         return state.heroes.heroes
-    //     } else {
-    //         return state.heroes.heroes.filter(item => item.element === state.filters.activeFilter)
-    //     }
-    // })
+
     const heroesLoadingStatus = useSelector(state => state.heroesLoadingStatus);
+    console.log(heroesLoadingStatus);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
 
     useEffect(() => {
-        dispatch(heroesFetching());
+        dispatch('HEROES_FETCHING');
         request("http://localhost:3001/heroes")
             .then(data => dispatch(heroesFetched(data)))
             .catch(() => dispatch(heroesFetchingError()))

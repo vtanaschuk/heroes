@@ -1,3 +1,4 @@
+
 export const heroesFetching = () => {
     return {
         type: 'HEROES_FETCHING'
@@ -40,7 +41,6 @@ export const filtersFetched = (filters) => {
     }
 }
 export const filtersFetchingError = () => {
-    console.log('hello')
     return {
         type: 'FILTERS_FETCHING_ERROR'
     }
