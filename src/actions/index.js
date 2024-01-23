@@ -1,3 +1,17 @@
+export const fetchHeroes = (request) => (dispatch) =>{
+    dispatch(heroesFetching());
+    request("http://localhost:3001/heroes")
+        .then(data => dispatch(heroesFetched(data)))
+        .catch(() => dispatch(heroesFetchingError()))
+}
+
+export const fetchFilters = (request) => (dispatch) =>{
+    dispatch(filtersFetching());
+    request("http://localhost:3001/filters")
+        .then(data => dispatch(filtersFetched(data)))
+        .catch(() => dispatch(filtersFetchingError()))
+}
+
 
 export const heroesFetching = () => {
     return {
@@ -45,10 +59,13 @@ export const filtersFetchingError = () => {
         type: 'FILTERS_FETCHING_ERROR'
     }
 }
-export const filterChange = (name) =>{
-    console.log(name)
-    return {
-        type: 'FILTER_CHANGE',
-        payload: name
-    }
+export const filterChange = (name) => (dispatch) =>{
+    setTimeout(()=>{
+        dispatch (
+            {
+                type: 'FILTER_CHANGE',
+                payload: name
+            }
+        )
+    }, 1000)
 }

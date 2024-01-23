@@ -1,16 +1,10 @@
 import {useHttp} from '../../hooks/http.hook';
 import {useCallback, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import {heroesFetching, heroesFetched, heroesFetchingError, heroesDelete} from '../../actions';
+import {fetchHeroes, heroesDelete} from '../../actions';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 import {createSelector} from "reselect";
-
-// Завдання для цього компонента:
-// При натисканні на "хрестик" йде видалення персонажа із загального стану
-// Ускладнене завдання:
-// Видалення йде і з json файлу за допомогою методу DELETE
 
 const HeroesList = () => {
 
@@ -35,11 +29,7 @@ const HeroesList = () => {
 
 
     useEffect(() => {
-        dispatch('HEROES_FETCHING');
-        request("http://localhost:3001/heroes")
-            .then(data => dispatch(heroesFetched(data)))
-            .catch(() => dispatch(heroesFetchingError()))
-
+        dispatch(fetchHeroes(request));
         // eslint-disable-next-line
     }, []);
 
