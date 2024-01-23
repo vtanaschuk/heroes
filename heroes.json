@@ -1,40 +1,10 @@
 {
   "heroes": [
     {
-      "id": "1704815134954",
-      "name": "asdasd",
-      "description": "qweqwe",
-      "element": "water"
-    },
-    {
-      "id": "1704818604903",
-      "name": "333",
-      "description": "444",
-      "element": "water"
-    },
-    {
-      "id": "1705417998974",
-      "name": "erwrw",
-      "description": "fcxcvx",
-      "element": "wind"
-    },
-    {
       "id": "1705420230645",
       "name": "asdasd",
       "description": "asdasd",
       "element": "earth"
-    },
-    {
-      "id": "1705420496268",
-      "name": "333",
-      "description": "444",
-      "element": ""
-    },
-    {
-      "id": "1705420587535",
-      "name": "222",
-      "description": "888",
-      "element": ""
     },
     {
       "id": "1705420866225",
