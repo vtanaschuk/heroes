@@ -1,8 +1,7 @@
 import {useHttp} from '../../hooks/http.hook';
 import {useState} from "react";
-import {heroCreated, heroesFetchingError} from "../../actions";
 import {useDispatch, useSelector} from "react-redux";
-
+import {heroCreated, heroesFetchingError} from '../heroesList/heroesSlice'
 const HeroesAddForm = () => {
     const {filters, filtersLoadingStatus} = useSelector(state => state.filters);
 

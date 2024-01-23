@@ -13,26 +13,51 @@ const initialState = {
     heroesLoadingStatus: 'idle',
 }
 
-const heroes = createReducer(initialState, builder => {
-    builder
-        .addCase(heroesFetching, state => {
+const heroes = createReducer(initialState, {
+
+        [heroesFetching] : state => {
             state.heroesLoadingStatus = 'loading'
-        })
-        .addCase(heroesFetched, (state, action)=>{
+        },
+        [heroesFetched] : (state, action)=>{
             state.heroesLoadingStatus = 'idle';
             state.heroes= action.payload;
-        })
-        .addCase(heroesFetchingError, state => {
+        },
+        [heroesFetchingError] : state => {
             state.heroesLoadingStatus = 'error';
-        })
-        .addCase(heroCreated,(state, action)=>{
+        },
+        [heroCreated] : (state, action)=>{
             state.heroes.push(action.payload);
-        })
-        .addCase(heroesDelete,(state, action)=>{
+        },
+        [heroesDelete] : (state, action)=>{
             state.heroes= state.heroes.filter(item=> item.id !== action.payload);
-        })
-        .addDefaultCase(()=>{})
-})
+        },
+    },
+    [],
+    state => state
+)
+
+
+
+// const heroes = createReducer(initialState, builder => {
+//     builder
+//         .addCase(heroesFetching, state => {
+//             state.heroesLoadingStatus = 'loading'
+//         })
+//         .addCase(heroesFetched, (state, action)=>{
+//             state.heroesLoadingStatus = 'idle';
+//             state.heroes= action.payload;
+//         })
+//         .addCase(heroesFetchingError, state => {
+//             state.heroesLoadingStatus = 'error';
+//         })
+//         .addCase(heroCreated,(state, action)=>{
+//             state.heroes.push(action.payload);
+//         })
+//         .addCase(heroesDelete,(state, action)=>{
+//             state.heroes= state.heroes.filter(item=> item.id !== action.payload);
+//         })
+//         .addDefaultCase(()=>{})
+// })
 
 // const heroes = (state = initialState, action) => {
 //     switch (action.type) {
