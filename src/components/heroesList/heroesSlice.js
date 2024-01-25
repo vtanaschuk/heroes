@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import {heroCreated, heroesDelete, heroesFetched, heroesFetchingError} from "../../actions";
 
 const initialState = {
     heroes: [],

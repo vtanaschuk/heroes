@@ -1,15 +1,8 @@
-
-// Завдання для цього компонента:
-// Фільтри повинні формуватися на підставі завантажених даних
-// Фільтри повинні відображати лише потрібних героїв під час виборів
-// Активний фільтр має клас active
-// Змінювати json-файл для зручності МОЖНА!
-// Уявіть, що ви попросили бекенд-розробника про це
-
 import {useHttp} from '../../hooks/http.hook';
 import {useCallback, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {fetchFilters, filtersFetched, filtersFetching, filtersFetchingError, filterChange, fetchHeroes} from '../../actions';
+import {fetchFilters, fetchHeroes} from '../../actions';
+import {filtersFetching, filtersFetched, filtersFetchingError, filterChange} from './filterSlice'
 
 const HeroesFilters = () => {
     const {filters, filtersLoadingStatus, activeFilter} = useSelector(state => state.filters);
@@ -18,6 +11,7 @@ const HeroesFilters = () => {
     const {request} = useHttp();
 
     useEffect(() => {
+
         dispatch(fetchFilters(request));
 
     }, []);

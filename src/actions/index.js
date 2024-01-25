@@ -1,5 +1,6 @@
 import {createAction} from "@reduxjs/toolkit";
-import {heroesFetching, heroesFetched, heroesFetchingError} from '../components/heroesList/heroesSlice'
+import {heroesFetching, heroesFetched, heroesFetchingError} from '../components/heroesList/heroesSlice';
+import {filtersFetching, filtersFetched, filtersFetchingError} from '../components/heroesFilters/filterSlice'
 export const fetchHeroes = (request) => (dispatch) =>{
     dispatch(heroesFetching());
     request("http://localhost:3001/heroes")
@@ -10,34 +11,9 @@ export const fetchHeroes = (request) => (dispatch) =>{
 export const fetchFilters = (request) => (dispatch) =>{
     dispatch(filtersFetching());
     request("http://localhost:3001/filters")
-        .then(data => dispatch(filtersFetched(data)))
+        .then(data => {
+            console.log(data);
+            return dispatch(filtersFetched(data));
+        })
         .catch(() => dispatch(filtersFetchingError()))
-}
-
-
-export const filtersFetching = () => {
-    return {
-        type: 'FILTERS_FETCHING'
-    }
-}
-export const filtersFetched = (filters) => {
-    return {
-        type: 'FILTERS_FETCHED',
-        payload: filters
-    }
-}
-export const filtersFetchingError = () => {
-    return {
-        type: 'FILTERS_FETCHING_ERROR'
-    }
-}
-export const filterChange = (name) => (dispatch) =>{
-    setTimeout(()=>{
-        dispatch (
-            {
-                type: 'FILTER_CHANGE',
-                payload: name
-            }
-        )
-    }, 1000)
 }

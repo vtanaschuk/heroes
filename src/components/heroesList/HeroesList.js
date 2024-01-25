@@ -25,7 +25,6 @@ const HeroesList = () => {
 
 
     const heroesLoadingStatus = useSelector(state => state.heroesLoadingStatus);
-    console.log(heroesLoadingStatus);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
