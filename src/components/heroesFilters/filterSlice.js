@@ -7,6 +7,7 @@ const initialState = {
     filteredHeroes: []
 }
 
+
 const filterSlice = createSlice({
     name: 'filter',
     initialState,

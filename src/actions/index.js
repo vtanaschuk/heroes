@@ -1,4 +1,3 @@
-import {createAction} from "@reduxjs/toolkit";
 import {heroesFetching, heroesFetched, heroesFetchingError} from '../components/heroesList/heroesSlice';
 import {filtersFetching, filtersFetched, filtersFetchingError} from '../components/heroesFilters/filterSlice'
 export const fetchHeroes = (request) => (dispatch) =>{
