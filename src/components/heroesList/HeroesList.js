@@ -7,8 +7,18 @@ import {createSelector} from "reselect";
 
 import {heroesDelete, fetchHeroes, selectAll} from './heroesSlice';
 
+import { useGetHeroesQuery } from "../../api/apiSlice";
 
 const HeroesList = () => {
+
+    const {
+        data: heroes= [],
+        isFetching,
+        isLoading,
+        isSuccess,
+        isError,
+        error
+    } = useGetHeroesQuery();
 
     const filteredHeroesSelector = createSelector(
         (state) => state.filters.activeFilter,
@@ -59,8 +69,8 @@ const HeroesList = () => {
         })
     }
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const filteredHeroes = useSelector(filteredHeroesSelector);
-    const elements = renderHeroesList(filteredHeroes);
+    // const filteredHeroes = (heroes);
+    const elements = renderHeroesList(heroes);
     return (
         <ul>
             {elements}

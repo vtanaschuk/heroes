@@ -2,8 +2,13 @@ import {useHttp} from '../../hooks/http.hook';
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {heroCreated, heroesFetchingError} from '../heroesList/heroesSlice'
+import { selectAll} from '../heroesFilters/filterSlice';
+import store from "../../store";
+
 const HeroesAddForm = () => {
-    const {filters, filtersLoadingStatus} = useSelector(state => state.filters);
+    const {filtersLoadingStatus} = useSelector(state => state.filters);
+
+    const filters = selectAll(store.getState())
 
     const dispatch = useDispatch();
     const {request} = useHttp();
@@ -11,6 +16,7 @@ const HeroesAddForm = () => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [element, setElement] = useState('')
+
     const elOptions =  filters.map(el=> {
         // if( el.name === 'all' ) return
         return <option value={el.name}>{el.label}</option>
