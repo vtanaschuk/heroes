@@ -5,17 +5,16 @@ import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 import {createSelector} from "reselect";
 
-import {heroesDelete, fetchHeroes} from './heroesSlice';
+import {heroesDelete, fetchHeroes, selectAll} from './heroesSlice';
 
 
 const HeroesList = () => {
 
     const filteredHeroesSelector = createSelector(
         (state) => state.filters.activeFilter,
-        (state) => state.heroes.heroes,
+        selectAll,
         (filters, heroes) =>{
             if(filters ==='all'){
-                console.log('render')
                 return heroes
             } else {
                 return heroes.filter(item => item.element === filters)
