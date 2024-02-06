@@ -1,6 +1,6 @@
 import {useHttp} from '../../hooks/http.hook';
-import {useCallback, useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import {useCallback, useEffect, useMemo} from 'react';
+import { useDispatch, useSelector} from 'react-redux';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 import {createSelector} from "reselect";
@@ -12,25 +12,21 @@ import { useGetHeroesQuery } from "../../api/apiSlice";
 const HeroesList = () => {
 
     const {
-        data: heroes= [],
-        isFetching,
+        data: heroes = [],
         isLoading,
-        isSuccess,
         isError,
-        error
     } = useGetHeroesQuery();
 
-    const filteredHeroesSelector = createSelector(
-        (state) => state.filters.activeFilter,
-        selectAll,
-        (filters, heroes) =>{
-            if(filters ==='all'){
-                return heroes
-            } else {
-                return heroes.filter(item => item.element === filters)
-            }
+    const activeFilter = useSelector(state => state.filters.activeFilter)
+
+    const filteredHeroes = useMemo(() => {
+        if (activeFilter === 'all') {
+            return heroes;
+        } else {
+            return heroes.filter(item => item.element === activeFilter);
         }
-    );
+    }, [heroes, activeFilter]);
+
 
 
     const heroesLoadingStatus = useSelector(state => state.heroesLoadingStatus);
@@ -53,9 +49,9 @@ const HeroesList = () => {
 
 
 
-    if (heroesLoadingStatus === "loading") {
+    if (isLoading) {
         return <Spinner/>;
-    } else if (heroesLoadingStatus === "error") {
+    } else if (isError) {
         return <h5 className="text-center mt-5">Помилка завантаження</h5>
     }
 
@@ -70,7 +66,7 @@ const HeroesList = () => {
     }
     // eslint-disable-next-line react-hooks/rules-of-hooks
     // const filteredHeroes = (heroes);
-    const elements = renderHeroesList(heroes);
+    const elements = renderHeroesList(filteredHeroes);
     return (
         <ul>
             {elements}

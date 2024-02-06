@@ -4,18 +4,19 @@ import {useDispatch, useSelector} from "react-redux";
 import {heroCreated, heroesFetchingError} from '../heroesList/heroesSlice'
 import { selectAll} from '../heroesFilters/filterSlice';
 import store from "../../store";
+import { useCreateHeroMutation } from "../../api/apiSlice";
 
 const HeroesAddForm = () => {
     const {filtersLoadingStatus} = useSelector(state => state.filters);
-
     const filters = selectAll(store.getState())
-
     const dispatch = useDispatch();
     const {request} = useHttp();
 
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [element, setElement] = useState('')
+
+    const [createHero, {isLoading}] = useCreateHeroMutation()
 
     const elOptions =  filters.map(el=> {
         // if( el.name === 'all' ) return
@@ -32,10 +33,11 @@ const HeroesAddForm = () => {
             element
         }
 
-        request("http://localhost:3001/heroes", 'POST', JSON.stringify(newHero))
-            .then(res => console.log(res))
-            .then(dispatch(heroCreated(newHero)))
-            .catch(() => dispatch(heroesFetchingError()))
+        createHero(newHero).unwrap();
+        // request("http://localhost:3001/heroes", 'POST', JSON.stringify(newHero))
+        //     .then(res => console.log(res))
+        //     .then(dispatch(heroCreated(newHero)))
+        //     .catch(() => dispatch(heroesFetchingError()))
 
 
         setName('')
